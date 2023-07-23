@@ -110,7 +110,7 @@ class Discriminator:
 		x = Flatten()(x)
 
 		discriminator_output = Dense(1, activation = "sigmoid")(x)
-		discriminator_model  Model(discriminator_input, discriminator_output)
+		discriminator_model = Model(discriminator_input, discriminator_output)
 
 		return discriminator_model
 
