@@ -20,7 +20,7 @@ import tensorflow as tf
 
 from keras.layers import (Dropout, Input, Dense, Conv2D,
 						  MaxPooling2D, GlobalAveragePooling2D,
-						  Upsampling2D, Conv2DTranspose, Reshape,
+						  UpSampling2D, Conv2DTranspose, Reshape,
 						  Flatten, Activation, BatchNormalization,
 						  LeakyReLU, ReLU)
 
