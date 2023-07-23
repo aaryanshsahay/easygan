@@ -116,24 +116,27 @@ class Discriminator:
 
 class DCGAN(keras.Model):
 	def __init__(self, seed_size, image_length, image_channels = 3, num_nodes = 512,model_optimizer = Adam(learning_rate = 0.0002, beta_1 = 0.5), **kwargs):
-		super(DCGAN, self).__init__(**kwargs)
-		self.seed_size = seed_size
-		self.image_length = image_length
-		self.num_nodes = num_nodes
-		self.image_channels = image_channels
-		self.model_optimizer = model_optimizer
+	    super(DCGAN, self).__init__(*kwargs)
+	    self.seed_size = seed_size
+	    #super(DCGAN, self).__init__(**kwargs)
+	    #self.seed_size = seed_size
+	    self.image_length = image_length
+	    self.num_nodes = num_nodes
+	    self.image_channels = image_channels
+	    self.model_optimizer = model_optimizer
 
 
-		generator = Generator()
-		generator_optimizer = model_optimizer
-		generator_model = generator.Build(seed_size, image_length, num_nodes)
-		self.generator = generator_model
+	    generator = Generator()
+	    generator_optimizer = model_optimizer
+	    generator_model = generator.Build(seed_size, image_length, num_nodes)
+	    self.generator = generator_model
 
-		discriminator = Discriminator()
-		discriminator_optimizer = model_optimizer
-		self.discriminator = discriminator_model
+	    discriminator = Discriminator()
+	    discriminator_model = discriminator.Build(image_length, image_channels)
+	    discriminator_optimizer = model_optimizer
+	    self.discriminator = discriminator_model
 
-		self.cross_entropy = tf.keras.losses.BinaryCrossentropy()
+	    self.cross_entropy = tf.keras.losses.BinaryCrossentropy()
 
 	def GetPlot(self, **kwargs):
 		return tf.keras.utils.plot_model(self.generator, show_shapes = True, **kwargs), tf.keras.utils.plot_model(self.discriminator, show_shapes = True, **kwargs)
@@ -175,7 +178,7 @@ class DCGAN(keras.Model):
 
 
 		return {
-			"generator loss" : generated_loss,
+			"generator loss" : generator_loss,
 			"discriminator loss" : discriminator_loss
 		}
 
