@@ -157,7 +157,7 @@ class DCGAN(keras.Model):
 		self.generator_optimizer = model_optimizer
 		self.discriminator_optimizer = model_optimizer
 
-	@tf.funciton
+	@tf.function
 	def TrainStep(self, data):
 		batch_size = tf.shape(data)[0]
 
