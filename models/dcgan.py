@@ -38,7 +38,7 @@ import cv2
 import random
 import os
 import time 
-from utils import SaveImages, CheckpointCallback
+
 
 
 class Generator:
