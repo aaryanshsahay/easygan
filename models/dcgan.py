@@ -126,12 +126,12 @@ class DCGAN(keras.Model):
 	    self.model_optimizer = model_optimizer
 
 
-	    generator = Generator()
+	    generator = Generator(seed_size, image_length, num_nodes)
 	    generator_optimizer = model_optimizer
 	    generator_model = generator.Build(seed_size, image_length, num_nodes)
 	    self.generator = generator_model
 
-	    discriminator = Discriminator()
+	    discriminator = Discriminator(image_length, num_nodes, image_channels)
 	    discriminator_model = discriminator.Build(image_length, image_channels)
 	    discriminator_optimizer = model_optimizer
 	    self.discriminator = discriminator_model
