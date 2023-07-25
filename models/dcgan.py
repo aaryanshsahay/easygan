@@ -47,13 +47,15 @@ class Generator:
 		self.image_length = image_length
 		self.num_nodes = num_nodes
 
-		init = RandomNormal(stddev = 0.2)
+		
 
 	def Build(self):
 		seed_size, image_length, num_nodes = self.seed_size, self.image_length, self.num_nodes
 		# number of Conv2D Transpose blocks based on the image dimension
 		num_blocks = int(np.log2(image_length)) - 3 
-
+		
+		init = RandomNormal(stddev = 0.2)
+		
 		generator_input = Input(shape = (seed_size,))
 		x = Dense(4*4*1024)(generator_input)
 		x = BatchNormalization()(x)
@@ -88,7 +90,7 @@ class Discriminator:
 		self.image_length = image_length
 		self.image_channels = image_channels
 		self.num_nodes = num_nodes
-		init = RandomNormal(stddev = 0.2)
+		
 
 	def Build(self):
 		image_length,  image_channels, num_nodes = self.image_length, self.image_channels ,self.num_nodes
@@ -96,7 +98,8 @@ class Discriminator:
 		discriminator_input = Input(shape = (image_length, image_length, image_channels))
 		# Getting the number of conv2d blocks required to get to target image dimension
 		num_blocks = int(np.log2(image_length)) - 3
-
+		init = RandomNormal(stddev = 0.2)
+		
 		x = Con2D(64, kernel_size = 3, strides = 2, padding = "same", use_bias = False, kernel_initializer = init)(x)
 		x = LeakyReLU(alpha = 0.2)(x)
 
