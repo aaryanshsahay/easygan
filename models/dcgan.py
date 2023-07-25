@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 
 
 from tensorflow import keras 
-from tensorflow.keras import layers
+from tensorflow.keras import layers, activations
 import tensorflow as tf
 
 
@@ -27,6 +27,7 @@ from keras.layers import (Dropout, Input, Dense, Conv2D,
 from tensorflow.keras.optimizers import Adam
 
 from keras.models import Model
+
 
 
 from keras.preprocessing import image
@@ -80,7 +81,7 @@ class Generator:
 
 		# Output block
 		x = Conv2DTranspose(3, kernel_size = 3, strides = 2, padding = "same", use_bias = False, kernel_initializer = init)(x)
-		generator_output = layers.Activation(activation.tanh)(x)
+		generator_output = layers.Activation(activations.tanh)(x)
 		generator_model = Model(generator_input, generator_output)
 
 		return generator_output
