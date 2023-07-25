@@ -80,7 +80,7 @@ class Generator:
 
 		# Output block
 		x = Conv2DTranspose(3, kernel_size = 3, strides = 2, padding = "same", use_bias = False, kernel_initializer = init)(x)
-		generator_output = layers.Activation(activations.tanh)(x)
+		generator_output = layers.Activation(activation.tanh)(x)
 		generator_model = Model(generator_input, generator_output)
 
 		return generator_output
