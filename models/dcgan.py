@@ -21,7 +21,7 @@ import tensorflow as tf
 from keras.layers import (Dropout, Input, Dense, Conv2D,
 						  MaxPooling2D, GlobalAveragePooling2D,
 						  UpSampling2D, Conv2DTranspose, Reshape,
-						  Flatten, Activation, BatchNormalization,
+						  Flatten, BatchNormalization,
 						  LeakyReLU, ReLU)
 
 from tensorflow.keras.optimizers import Adam
@@ -101,7 +101,7 @@ class Discriminator:
 		num_blocks = int(np.log2(image_length)) - 3
 		init = RandomNormal(stddev = 0.2)
 		
-		x = Con2D(64, kernel_size = 3, strides = 2, padding = "same", use_bias = False, kernel_initializer = init)(x)
+		x = Conv2D(64, kernel_size = 3, strides = 2, padding = "same", use_bias = False, kernel_initializer = init)(discriminator_input)
 		x = LeakyReLU(alpha = 0.2)(x)
 
 		for i in range(num_blocks -1):
@@ -154,12 +154,12 @@ class DCGAN(keras.Model):
 		total_loss = label_loss + generated_loss
 		return total_loss
 
-	def CompileModel(self, model_optimizer):
-		model_optimizer = self.model_optimizer
+	def CompileModel(self):
+		
 
 		super(DCGAN, self).compile() 
-		self.generator_optimizer = model_optimizer
-		self.discriminator_optimizer = model_optimizer
+		self.generator_optimizer = self.model_optimizer
+		self.discriminator_optimizer = self.model_optimizer
 
 	@tf.function
 	def TrainStep(self, data):
